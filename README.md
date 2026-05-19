@@ -2,15 +2,11 @@
 
 A PHP based site for helping break down some basic school shooting statistics, especially in relation to transgender assailants. This was created as a means to help combat propaganda blaming transgender people for the majority of school shootings.
 
----
-
 ## Requirements
 
 - PHP 8.0+
 - MySQL 5.7+ or MariaDB 10.3+
 - Web server (Apache/Nginx) or `php -S localhost:8000` for local dev
-
----
 
 ## Setup
 
@@ -37,8 +33,6 @@ cd school-shooting-stats
 php -S localhost:8000
 ```
 
----
-
 ## Directory Structure
 
 ```
@@ -64,8 +58,6 @@ school-shooting-stats/
 └── schema.sql          # Run once to create the database
 ```
 
----
-
 ## Importing Your Spreadsheet
 
 1. Open your spreadsheet in Excel or Google Sheets
@@ -89,8 +81,6 @@ The importer auto-detects column names (case-insensitive). Accepted aliases per 
 
 See `import/sample_template.csv` for a working example.
 
----
-
 ## Admin Panel
 
 From the admin panel you can:
@@ -98,8 +88,6 @@ From the admin panel you can:
 - Edit or delete any record
 - Import CSV files (bulk)
 - View an import log
-
----
 
 ## Statistical Methodology
 
