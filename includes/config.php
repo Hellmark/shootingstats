@@ -18,5 +18,5 @@ defined('ADMIN_PASSWORD') || define('ADMIN_PASSWORD', password_hash('changeme', 
 
 // US transgender population percentage (approximate, per Williams Institute 2022)
 // https://williamsinstitute.law.ucla.edu/publications/trans-adults-united-states/
-defined('TRANS_POPULATION_PCT')    || define('TRANS_POPULATION_PCT',    0.006);
-defined('TRANS_POPULATION_SOURCE') || define('TRANS_POPULATION_SOURCE', 'Williams Institute, UCLA School of Law (2022)');
+defined('TRANS_POPULATION_PCT')    || define('TRANS_POPULATION_PCT',    0.008);
+defined('TRANS_POPULATION_SOURCE') || define('TRANS_POPULATION_SOURCE', 'Williams Institute, UCLA School of Law (2025)');
