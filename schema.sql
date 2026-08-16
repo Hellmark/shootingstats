@@ -56,6 +56,8 @@ CREATE TABLE IF NOT EXISTS geocode_cache (
     cached_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY city_state (city, state)
 );
+
+CREATE TABLE IF NOT EXISTS import_log (
     id           INT AUTO_INCREMENT PRIMARY KEY,
     filename     VARCHAR(255),
     rows_imported INT,

@@ -57,6 +57,12 @@ function run_migrations(PDO $pdo): void
             "ALTER TABLE incidents ADD COLUMN school_name VARCHAR(255) NULL AFTER state",
         "location" =>
             "ALTER TABLE incidents MODIFY COLUMN location VARCHAR(255) NULL",
+        "total_assailants" =>
+            "ALTER TABLE incidents ADD COLUMN total_assailants INT NOT NULL DEFAULT 1",
+        "assailant_genders" =>
+            "ALTER TABLE incidents ADD COLUMN assailant_genders VARCHAR(255) NULL",
+        "trans_assailant_count" =>
+            "ALTER TABLE incidents ADD COLUMN trans_assailant_count INT NOT NULL DEFAULT 0",
     ];
 
     foreach ($migrations as $col => $sql) {
@@ -93,6 +99,30 @@ function run_migrations(PDO $pdo): void
         notes         TEXT,
         imported_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )");
+
+    // Rebuild v_summary unconditionally. Every "total assailants" figure on the
+    // site reads from this view, and a view created against an older incidents
+    // table silently keeps reporting stale aggregates — no error, just wrong
+    // numbers that never respond to edits. Recreating it is metadata-only.
+    // Must run after the column migrations above.
+    try {
+        $pdo->exec("CREATE OR REPLACE VIEW v_summary AS
+            SELECT
+                COUNT(*)                    AS total_incidents,
+                SUM(deaths)                 AS total_deaths,
+                SUM(injuries)               AS total_injuries,
+                SUM(total_harmed)           AS total_harmed,
+                SUM(had_trans_assailant)    AS incidents_with_trans_assailant,
+                SUM(trans_assailant_count)  AS total_trans_assailants,
+                SUM(total_assailants)       AS total_assailants,
+                MIN(incident_date)          AS earliest_incident,
+                MAX(incident_date)          AS latest_incident
+            FROM incidents");
+    } catch (PDOException $e) {
+        // Needs CREATE VIEW + DROP on the schema. Log rather than fataling so a
+        // reduced-privilege DB user still serves pages off the existing view.
+        error_log("Migration failed for view 'v_summary': " . $e->getMessage());
+    }
 }
 
 function get_summary(): array
