@@ -56,7 +56,7 @@ page_header('Overview');
         <div class="context-grid">
             <div class="context-stat">
                 <div class="num"><?= number_format($trans_pct_actual, 2) ?>%</div>
-                <div class="lbl">Trans assailants as % of all assailants in this dataset</div>
+                <div class="lbl">Trans assailants as % of all assailants in this dataset (<?= $trans_assailants ?> of <?= $total_assailants ?>)</div>
             </div>
             <div class="context-stat">
                 <div class="num"><?= number_format($trans_pct_pop, 1) ?>%</div>
