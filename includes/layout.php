@@ -66,7 +66,11 @@ function page_footer(): void
 <footer class="site-footer">
     <div class="container">
         <p>Data compiled from public records, news sources, and official reports. This site exists to promote evidence-based understanding of gun violence in schools.</p>
-        <p class="footer-small">Statistical comparisons use U.S. transgender population estimates from the <a href="https://williamsinstitute.law.ucla.edu/publications/trans-adults-united-states/" target="_blank">Williams Institute, UCLA (2022)</a>.</p>
+        <p class="footer-small">Statistical comparisons use U.S. transgender population estimates from the <a href="<?= htmlspecialchars(
+            TRANS_POPULATION_URL,
+        ) ?>" target="_blank" rel="noopener"><?= htmlspecialchars(
+    TRANS_POPULATION_SOURCE,
+) ?></a>.</p>
     </div>
 </footer>
 </body>

@@ -16,7 +16,9 @@ defined('DB_CHARSET') || define('DB_CHARSET', 'utf8mb4');
 defined('SITE_TITLE')     || define('SITE_TITLE',     'U.S. School Shooting Statistics');
 defined('ADMIN_PASSWORD') || define('ADMIN_PASSWORD', password_hash('changeme', PASSWORD_DEFAULT));
 
-// US transgender population percentage (approximate, per Williams Institute 2022)
-// https://williamsinstitute.law.ucla.edu/publications/trans-adults-united-states/
+// US transgender population percentage (approximate, per Williams Institute 2025).
+// These three move together: the figure, the citation printed beside it, and the
+// link that citation points at. Change one and check the other two.
 defined('TRANS_POPULATION_PCT')    || define('TRANS_POPULATION_PCT',    0.008);
 defined('TRANS_POPULATION_SOURCE') || define('TRANS_POPULATION_SOURCE', 'Williams Institute, UCLA School of Law (2025)');
+defined('TRANS_POPULATION_URL')    || define('TRANS_POPULATION_URL',    'https://williamsinstitute.law.ucla.edu/publications/trans-adults-united-states/');

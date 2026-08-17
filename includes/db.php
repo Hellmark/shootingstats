@@ -99,15 +99,19 @@ function run_migrations(PDO $pdo): void
         notes         TEXT,
         imported_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )");
+}
 
-    // Rebuild v_summary unconditionally. Every "total assailants" figure on the
-    // site reads from this view, and a view created against an older incidents
-    // table silently keeps reporting stale aggregates — no error, just wrong
-    // numbers that never respond to edits. Recreating it is metadata-only.
-    // Must run after the column migrations above.
-    try {
-        $pdo->exec("CREATE OR REPLACE VIEW v_summary AS
-            SELECT
+function get_summary(): array
+{
+    // Aggregated here rather than read from the old v_summary view. That view
+    // was created once at setup and never updated after, so a database
+    // predating a column kept serving aggregates that silently ignored it —
+    // wrong numbers, no error, unresponsive to edits. Keeping the definition in
+    // the function that depends on it means it cannot drift out of step again.
+    $pdo = get_pdo();
+    return $pdo
+        ->query(
+            "SELECT
                 COUNT(*)                    AS total_incidents,
                 SUM(deaths)                 AS total_deaths,
                 SUM(injuries)               AS total_injuries,
@@ -117,18 +121,9 @@ function run_migrations(PDO $pdo): void
                 SUM(total_assailants)       AS total_assailants,
                 MIN(incident_date)          AS earliest_incident,
                 MAX(incident_date)          AS latest_incident
-            FROM incidents");
-    } catch (PDOException $e) {
-        // Needs CREATE VIEW + DROP on the schema. Log rather than fataling so a
-        // reduced-privilege DB user still serves pages off the existing view.
-        error_log("Migration failed for view 'v_summary': " . $e->getMessage());
-    }
-}
-
-function get_summary(): array
-{
-    $pdo = get_pdo();
-    return $pdo->query("SELECT * FROM v_summary")->fetch();
+             FROM incidents",
+        )
+        ->fetch();
 }
 
 function get_incidents(

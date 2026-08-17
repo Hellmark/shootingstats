@@ -135,7 +135,7 @@ page_header('Statistical Analysis');
     </div>
 
     <p style="margin-top:2rem;font-size:.82rem;color:var(--ink-soft);font-style:italic">
-        All statistics on this page are derived directly from the incidents database. Transgender population figures are sourced from the <a href="https://williamsinstitute.law.ucla.edu/publications/trans-adults-united-states/" target="_blank">Williams Institute at UCLA School of Law (2022)</a> and represent the estimated percentage of U.S. adults who identify as transgender.
+        All statistics on this page are derived directly from the incidents database. Transgender population figures are sourced from the <a href="<?= htmlspecialchars(TRANS_POPULATION_URL) ?>" target="_blank" rel="noopener"><?= htmlspecialchars(TRANS_POPULATION_SOURCE) ?></a> and represent the estimated percentage of U.S. adults who identify as transgender.
     </p>
 </div>
 
