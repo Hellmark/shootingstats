@@ -61,7 +61,7 @@ page_header('Overview');
             <div class="context-stat">
                 <div class="num"><?= number_format($trans_pct_pop, 1) ?>%</div>
                 <div class="lbl">Transgender people as % of U.S. adult population</div>
-                <div style="font-size:.78rem;color:var(--ink-soft);margin-top:.3rem;"><?= TRANS_POPULATION_SOURCE ?></div>
+                <div style="font-size:.78rem;color:var(--ink-soft);margin-top:.3rem;"><a href="<?= htmlspecialchars(TRANS_POPULATION_URL,) ?>" target="_blank" rel="noopener noreferrer"><?= TRANS_POPULATION_SOURCE ?></a></div>
             </div>
             <div class="context-stat">
                 <div class="num"><?= number_format($summary['total_trans_assailants'] ?? 0) ?></div>
