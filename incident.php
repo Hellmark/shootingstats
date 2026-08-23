@@ -68,45 +68,45 @@ page_header(htmlspecialchars($inc["location"]));
         <div>
             <h3 style="margin-bottom:.8rem">Incident Details</h3>
             <table class="detail-meta" style="width:100%;font-size:.88rem">
-                <tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">Date</td><td><?= date(
+                <tr><td>Date</td><td><?= date(
                     "F j, Y",
                     strtotime($inc["incident_date"]),
                 ) ?></td></tr>
-                <tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">Location</td><td><?= htmlspecialchars(
+                <tr><td>Location</td><td><?= htmlspecialchars(
                     $inc["location"],
                 ) ?></td></tr>
                 <?php if (
                     $inc["city"]
-                ): ?><tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">City</td><td><?= htmlspecialchars(
+                ): ?><tr><td>City</td><td><?= htmlspecialchars(
     $inc["city"],
 ) ?></td></tr><?php endif; ?>
                 <?php if (
                     $inc["state"]
-                ): ?><tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">State</td><td><?= htmlspecialchars(
+                ): ?><tr><td>State</td><td><?= htmlspecialchars(
     $inc["state"],
 ) ?></td></tr><?php endif; ?>
-                <tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">Deaths</td><td><?= (int) $inc[
+                <tr><td>Deaths</td><td><?= (int) $inc[
                     "deaths"
                 ] ?></td></tr>
-                <tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">Injuries</td><td><?= (int) $inc[
+                <tr><td>Injuries</td><td><?= (int) $inc[
                     "injuries"
                 ] ?></td></tr>
-                <tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">Total Harmed</td><td><?= (int) $inc[
+                <tr><td>Total Harmed</td><td><?= (int) $inc[
                     "total_harmed"
                 ] ?></td></tr>
-                <tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">Total Assailants</td><td><?= (int) $inc[
+                <tr><td>Total Assailants</td><td><?= (int) $inc[
                     "total_assailants"
                 ] ?></td></tr>
-                <tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">Assailant Gender(s)</td><td><?= htmlspecialchars(
+                <tr><td>Assailant Gender(s)</td><td><?= htmlspecialchars(
                     $inc["assailant_genders"] ?? "—",
                 ) ?></td></tr>
-                <tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">Trans Assailant?</td><td><?= $inc[
+                <tr><td>Trans Assailant?</td><td><?= $inc[
                     "had_trans_assailant"
                 ]
                     ? "Yes (" . (int) $inc["trans_assailant_count"] . ")"
                     : "No" ?></td></tr>
                 <?php if ($inc["source_url"]): ?>
-                <tr><td style="padding:.3rem .6rem .3rem 0;color:var(--ink-soft)">Source</td><td><a href="<?= htmlspecialchars(
+                <tr><td>Source</td><td><a href="<?= htmlspecialchars(
                     $inc["source_url"],
                 ) ?>" target="_blank" rel="noopener noreferrer">Link ↗</a></td></tr>
                 <?php endif; ?>
