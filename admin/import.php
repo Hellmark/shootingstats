@@ -12,7 +12,7 @@ function normalize_col(string $h): string
 {
     $h = preg_replace("/[#?!]+/", "", $h); // strip #, ?, !
     $h = preg_replace("/\bof\b/i", "", $h); // strip filler "of"
-    return strtolower(trim(preg_replace("/[\s_\-]+/", "_", $h)));
+    return strtolower(preg_replace("/[\s_\-]+/", "_", trim($h)));
 }
 
 function map_headers(array $headers): array
@@ -29,6 +29,7 @@ function map_headers(array $headers): array
         "description" => ["description", "desc", "notes", "summary", "details"],
         "had_trans_assailant" => [
             "transgender_involvement", // ← "Transgender Involvement"
+            "trans_involvement",
             "trans",
             "had_trans",
             "trans_assailant",
@@ -280,6 +281,19 @@ if (
             if ($bom !== "\xEF\xBB\xBF") {
                 rewind($fh);
             } // no BOM, rewind
+            // Pick whichever of comma, semicolon or tab the header line uses
+            // most, so semicolon exports (European-locale Excel) import too
+            $pos = ftell($fh);
+            $first = (string) fgets($fh);
+            fseek($fh, $pos);
+            $counts = [];
+            foreach ([",", ";", "\t"] as $d) {
+                $counts[$d] = substr_count($first, $d);
+            }
+            arsort($counts);
+            if (reset($counts) > 0) {
+                $delimiter = key($counts);
+            }
             while (($row = fgetcsv($fh, 0, $delimiter)) !== false) {
                 $rows[] = $row;
             }
